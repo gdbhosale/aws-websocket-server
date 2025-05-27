@@ -1,17 +1,29 @@
 const express = require("express");
+const path = require("path");
+
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check endpoint
+/**
+ * Health check endpoint
+ */
 app.get("/", (req, res) => {
   res.json({
     message: "Server is running!",
     timestamp: new Date().toISOString(),
   });
+});
+
+/**
+ * UI to connect to WebSocket
+ */
+app.get("/ui", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 /**
@@ -24,7 +36,7 @@ app.post("/connect", (req, res) => {
   const connectionId = req.headers.connectionId;
 
   // Expecting Sec-WebSocket-Protocol to be "Token,JWT_TOKEN_STRING"
-  const protocols = req.headers["Sec-WebSocket-Protocol"].split(",").map((p) => p.trim());
+  const protocols = req.headers["sec-websocket-protocol"].split(",").map((p) => p.trim());
 
   // TODO Use protocols[1] (`JWT_TOKEN_STRING`) for validating the Connection Request
 
@@ -70,6 +82,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Available endpoints:`);
   console.log(`  GET   /             - Health check`);
+  console.log(`  GET   /ui           - UI to connect to WebSocket`);
   console.log(`  POST  /connect      - WebSocket Connect API`);
   console.log(`  POST  /disconnect   - WebSocket Disconnect API`);
   console.log(`  POST  /send-message - Send Message to WebSocket`);

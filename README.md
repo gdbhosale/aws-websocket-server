@@ -5,6 +5,7 @@ AWS API Gateway WebSocket with Node.js on EC2 Using HTTP Proxy Integration and S
 ## API Endpoints
 
 - `GET /` - Health check endpoint
+- `GET /ui` - UI to connect to WebSocket
 - `POST /connect` - WebSocket Connect API
 - `POST /disconnect` - WebSocket Disconnect API
 - `POST /send-message` - Send Message to WebSocket

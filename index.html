@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>WebSocket Client</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #status {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    button {
+      margin-right: 10px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>WebSocket Client</h2>
+
+  <div id="status">Status: <span id="connection-status">Disconnected</span></div>
+
+  <button id="connect-btn">Connect</button>
+  <button id="disconnect-btn" disabled>Disconnect</button>
+
+  <script>
+    let socket = null;
+
+    const statusEl = document.getElementById("connection-status");
+    const connectBtn = document.getElementById("connect-btn");
+    const disconnectBtn = document.getElementById("disconnect-btn");
+
+    const wsUrl = "wss://r93zzkyb38.execute-api.ap-south-1.amazonaws.com/development/"; // Replace with your actual WebSocket URL
+    const protocol = ["Token", "JWT_TOKEN_STRING"]; // TODO Replace JWT_TOKEN_STRING with Auth Token
+
+    function updateStatus(connected) {
+      statusEl.textContent = connected ? "Connected" : "Disconnected";
+      connectBtn.disabled = connected;
+      disconnectBtn.disabled = !connected;
+    }
+
+    connectBtn.addEventListener("click", () => {
+      socket = new WebSocket(wsUrl, protocol);
+
+      socket.onopen = () => {
+        console.log("WebSocket connection opened");
+        updateStatus(true);
+      };
+
+      socket.onclose = () => {
+        console.log("WebSocket connection closed");
+        updateStatus(false);
+      };
+
+      socket.onerror = (error) => {
+        console.error("WebSocket error", error);
+      };
+
+      socket.onmessage = (event) => {
+        console.log("Message from server:", event.data);
+      };
+    });
+
+    disconnectBtn.addEventListener("click", () => {
+      if (socket) {
+        socket.close();
+      }
+    });
+
+    updateStatus(false);
+  </script>
+
+</body>
+
+</html>
