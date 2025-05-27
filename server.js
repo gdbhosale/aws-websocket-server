@@ -53,6 +53,7 @@ app.post("/connect", (req, res) => {
  * WebSocket Disconnect API
  */
 app.post("/disconnect", (req, res) => {
+  console.log("/disconnect req.headers", req.headers);
   console.log("/disconnect req.body", req.body);
 
   // WebSocket connection ID
