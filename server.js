@@ -30,7 +30,8 @@ app.get("/ui", (req, res) => {
  * WebSocket Connect API
  */
 app.post("/connect", (req, res) => {
-  console.log("/connect req.headers", req.headers);
+  console.log("/connect req.headers.connectionId", req.headers.connectionId);
+  console.log("/connect req.headers.sec-websocket-protocol", req.headers["sec-websocket-protocol"]);
 
   // WebSocket connection ID
   const connectionId = req.headers.connectionId;
@@ -53,11 +54,10 @@ app.post("/connect", (req, res) => {
  * WebSocket Disconnect API
  */
 app.post("/disconnect", (req, res) => {
-  console.log("/disconnect req.headers", req.headers);
-  console.log("/disconnect req.body", req.body);
+  console.log("/disconnect req.headers.connectionId", req.headers.connectionId);
 
   // WebSocket connection ID
-  const connectionId = req.body.connectionId;
+  const connectionId = req.headers.connectionId;
 
   // TODO Remove connection from Database for connectionId
 
