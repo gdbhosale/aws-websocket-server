@@ -1,0 +1,16 @@
+{
+  "cSpell.words": [],
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.renderWhitespace": "all",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "editor.wordWrapColumn": 150,
+  "intelephense.diagnostics.typeErrors": false,
+  "intelephense.diagnostics.undefinedMethods": false,
+  "php.suggest.basic": false,
+  "prettier.printWidth": 150,
+  "prettier.tabWidth": 2,
+  "todo-tree.filtering.excludeGlobs": ["**/.git", "**/node_modules", "**/public/vendor", "**/vendor"]
+}
