@@ -30,6 +30,7 @@ app.get("/ui", (req, res) => {
  * WebSocket Connect API
  */
 app.post("/connect", (req, res) => {
+  console.log("/connect req.headers", req.headers);
   console.log("/connect req.headers.connectionId", req.headers.connectionId);
   console.log("/connect req.headers.sec-websocket-protocol", req.headers["sec-websocket-protocol"]);
 
