@@ -30,12 +30,11 @@ app.get("/ui", (req, res) => {
  * WebSocket Connect API
  */
 app.post("/connect", (req, res) => {
-  console.log("/connect req.headers", req.headers);
-  console.log("/connect req.headers.connectionId", req.headers.connectionId);
+  console.log("/connect req.headers.connectionid", req.headers.connectionid);
   console.log("/connect req.headers.sec-websocket-protocol", req.headers["sec-websocket-protocol"]);
 
   // WebSocket connection ID
-  const connectionId = req.headers.connectionId;
+  const connectionid = req.headers.connectionid;
 
   // Expecting Sec-WebSocket-Protocol to be "Token,JWT_TOKEN_STRING"
   const protocols = req.headers["sec-websocket-protocol"].split(",").map((p) => p.trim());
@@ -45,7 +44,7 @@ app.post("/connect", (req, res) => {
   // Return protocols[0] (`Token`) when Connection is valid
   res.setHeader("Sec-WebSocket-Protocol", protocols[0]);
 
-  // TODO Save connection in DB with connectionId and userId from JWT_TOKEN_STRING
+  // TODO Save connection in DB with connectionid and userId from JWT_TOKEN_STRING
 
   // Return Blank 200 response
   res.status(200).end();
@@ -55,12 +54,12 @@ app.post("/connect", (req, res) => {
  * WebSocket Disconnect API
  */
 app.post("/disconnect", (req, res) => {
-  console.log("/disconnect req.headers.connectionId", req.headers.connectionId);
+  console.log("/disconnect req.headers.connectionid", req.headers.connectionid);
 
   // WebSocket connection ID
-  const connectionId = req.headers.connectionId;
+  const connectionid = req.headers.connectionid;
 
-  // TODO Remove connection from Database for connectionId
+  // TODO Remove connection from Database for connectionid
 
   // Return Blank 200 response
   res.status(200).end();
@@ -72,7 +71,7 @@ app.post("/disconnect", (req, res) => {
 app.post("/send-message", (req, res) => {
   console.log("/send-message req.body", req.body);
 
-  // TODO Code to send message to WebSocket using connectionId
+  // TODO Code to send message to WebSocket using connectionid
 
   res.json({
     message: "Message Sent",
